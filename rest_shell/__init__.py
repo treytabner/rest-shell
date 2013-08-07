@@ -31,22 +31,24 @@ import subprocess
 import sys
 import tempfile
 
-import bottle
+import flask
 import requests
 
 
-@bottle.route('/execute', method='POST')
+app = flask.Flask('rest-shell')
+
+
+@app.route('/execute', methods=['POST'])
 def execute():
     """ Execute supplied command and return response """
-    apikey = bottle.request.headers.get('X-Auth-Token')
+    apikey = flask.request.headers.get('X-Auth-Token')
     if apikey != os.environ.get('TOKEN'):
-        # Bail if the token doesn't match
-        bottle.abort(code=401, text="TOKEN environment variable doesn't match")
+        return "Check your auth TOKEN", 401
 
-    command = bottle.request.json.get('command')
+    command = flask.request.json.get('command')
 
     if not command:
-        bottle.abort(code=400)
+        return 400
 
     with tempfile.TemporaryFile() as stdout:
         status = subprocess.call(command,
@@ -61,17 +63,19 @@ def execute():
         'output': output,
     }
 
-    return response
+    return flask.jsonify(response)
 
 
 def run(location):
-    """ Run the web server with Python bottle """
-    (host, port) = location.split(':')
+    """ Run the web server with Python flask"""
+
+    # Grab the port to start the server on
+    (_, port) = location.split(':')
 
     if not os.environ.get('TOKEN'):
         print "WARNING! No TOKEN specified, running without authentication"
 
-    bottle.run(host=host, port=port)
+    app.run('0.0.0.0', port=int(port), debug=True, ssl_context='adhoc')
 
 
 class RestShellClient(cmd.Cmd):
@@ -81,7 +85,7 @@ class RestShellClient(cmd.Cmd):
 
     def remote_execute(self, command):
         """ Send HTTP request to API and return output """
-        endpoint = "http://%s/execute" % self.location
+        endpoint = "https://%s/execute" % self.location
         payload = {'command': command}
         headers = {
             'Content-Type': 'application/json',
@@ -91,7 +95,8 @@ class RestShellClient(cmd.Cmd):
         try:
             response = requests.post(endpoint,
                                      data=simplejson.dumps(payload),
-                                     headers=headers)
+                                     headers=headers,
+                                     verify=False)
         except requests.exceptions.ConnectionError, err:
             print err
             sys.exit(1)
@@ -99,15 +104,19 @@ class RestShellClient(cmd.Cmd):
         if response.status_code == 200:
             data = response.json()
             return data.get('output', "")
+
         elif response.status_code == 401:
             print "Authentication failed, do you have TOKEN set properly?"
-            sys.exit(1)
+        else:
+            print "Unknown error, code %s" % response.status_code
+
+        sys.exit(1)
 
     def preloop(self):
         """ Setup the prompt """
 
         user = self.remote_execute('whoami')
-        self.prompt = "(http://%s@%s) " % (user.strip(), self.location)
+        self.prompt = "(https://%s@%s) " % (user.strip(), self.location)
 
     def emptyline(self):
         """ Ignore empty lines """

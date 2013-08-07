@@ -14,7 +14,8 @@ setup(
         ],
     },
     install_requires=[
-        'bottle',
+        'Flask',
+        'pyOpenSSL',
         'requests',
     ],
     license='GPLv3',
