@@ -13,9 +13,10 @@ This is a RESTful shell that gives you command line access to a server that does
 
 ** Installation
 
-Installation is easy with pip:
+Installation is easy with pip, but you may need some OpenSSL development header files:
 
 #+BEGIN_SRC sh
+apt-get install libssl-dev
 pip install git+https://github.com/treytabner/rest-shell.git
 #+END_SRC
 
