@@ -25,7 +25,8 @@ to interact with your server, this tool may work for you.
 
 import argparse
 import cmd
-import json
+import os
+import simplejson
 import subprocess
 import sys
 import tempfile
@@ -37,6 +38,11 @@ import requests
 @bottle.route('/execute', method='POST')
 def execute():
     """ Execute supplied command and return response """
+    apikey = bottle.request.headers.get('X-Auth-Token')
+    if apikey != os.environ.get('TOKEN'):
+        # Bail if the token doesn't match
+        bottle.abort(code=401, text="TOKEN environment variable doesn't match")
+
     command = bottle.request.json.get('command')
 
     if not command:
@@ -61,7 +67,9 @@ def execute():
 def run(location):
     """ Run the web server with Python bottle """
     (host, port) = location.split(':')
-    print host, port
+
+    if not os.environ.get('TOKEN'):
+        print "WARNING! No TOKEN specified, running without authentication"
 
     bottle.run(host=host, port=port)
 
@@ -75,27 +83,38 @@ class RestShellClient(cmd.Cmd):
         """ Send HTTP request to API and return output """
         endpoint = "http://%s/execute" % self.location
         payload = {'command': command}
-        headers = {'Content-Type': 'application/json'}
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Auth-Token': os.environ.get('TOKEN'),
+        }
 
         try:
             response = requests.post(endpoint,
-                                     data=json.dumps(payload),
+                                     data=simplejson.dumps(payload),
                                      headers=headers)
-            data = response.json()
         except requests.exceptions.ConnectionError, err:
             print err
             sys.exit(1)
 
-        return data.get('output', "")
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('output', "")
+        elif response.status_code == 401:
+            print "Authentication failed, do you have TOKEN set properly?"
+            sys.exit(1)
 
     def preloop(self):
-        user = self.remote_execute('whoami').strip()
-        self.prompt = "(http://%s@%s) " % (user, self.location)
+        """ Setup the prompt """
+
+        user = self.remote_execute('whoami')
+        self.prompt = "(http://%s@%s) " % (user.strip(), self.location)
 
     def emptyline(self):
+        """ Ignore empty lines """
         pass
 
     def default(self, line):
+        """ Remotely execute command """
         print self.remote_execute(line).strip()
 
     @staticmethod
