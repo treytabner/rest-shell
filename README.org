@@ -43,18 +43,18 @@ To connect to the API with the command line client, use rest-shell and supply th
 #+BEGIN_SRC sh
 TOKEN=hackme rest-shell localhost:8080
 Welcome to the RESTful shell!
-(http://trey@localhost:8080) df -h /boot
+(https://trey@localhost:8080) df -h /boot
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1       228M   43M  173M  20% /boot
-(http://trey@localhost:8080) uptime
+(https://trey@localhost:8080) uptime
 23:00:07 up 6 days,  6:16,  6 users,  load average: 0.15, 0.19, 0.14
-(http://trey@localhost:8080) ps
+(https://trey@localhost:8080) ps
 PID TTY          TIME CMD
   989 pts/2    00:00:00 bash
  5386 pts/2    00:00:00 rest-shell
  6084 pts/2    00:00:00 sh
  6085 pts/2    00:00:00 ps
-(http://trey@localhost:8080) python -V 2>&1 | toilet -f smmono9
+(https://trey@localhost:8080) python -V 2>&1 | toilet -f smmono9
 ▗▄▄      ▗  ▐                ▄▄     ▗▄▄▖    ▗▄▄
 ▐ ▝▌▗ ▗ ▗▟▄ ▐▗▖  ▄▖ ▗▗▖     ▝ ▝▌      ▐▘    ▐    ▗
 ▐▄▟▘▝▖▞  ▐  ▐▘▐ ▐▘▜ ▐▘▐       ▗▘      ▞     ▝▀▚▖ ▐
@@ -62,7 +62,7 @@ PID TTY          TIME CMD
 ▐    ▜   ▝▄ ▐ ▐ ▝▙▛ ▐ ▐     ▗▙▄▖ ▐   ▞   ▐  ▝▄▟▘ ▐
      ▞
     ▝▘
-(http://trey@localhost:8080) exit
+(https://trey@localhost:8080) exit
 #+END_SRC
 
 ** API
@@ -88,16 +88,16 @@ A sample response would look like:
 }
 #+END_SRC
 
-With the endpoint at `http://localhost:8080/execute`, an example using cURL would look like:
+With the endpoint at https://localhost:8080/execute, an example using cURL would look like:
 
 #+BEGIN_SRC sh
-curl -s -H 'Content-Type: application/json' -H 'X-Auth-Token: hackme' -d '{"command": "uname -sr"}' http://localhost:8080/execute
+curl -s -k -H 'Content-Type: application/json' -H 'X-Auth-Token: hackme' -d '{"command": "uname -sr"}' https://localhost:8080/execute
 #+END_SRC
 
 An example using HTTPie:
 
 #+BEGIN_SRC sh
-echo '{"command": "uname -sr"}' | http http://localhost:8080/execute X-Auth-Token:hackme
+echo '{"command": "uname -sr"}' | http --verify=no https://localhost:8080/execute X-Auth-Token:hackme
 #+END_SRC
 
 ** Todo
