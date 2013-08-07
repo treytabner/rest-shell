@@ -1,1 +1,78 @@
-* rest-shell
+* REST shell
+
+This is a RESTful shell that gives you command line access to a server that does not provide another means of shell access.  If you are limited to an API to interact with your server, this tool may work for you.
+
+** Features
+
+- Shell access to a server that does not offer shell access.
+- Run commands remotely without using the system's built in authentication system.
+- Not malware.  You already have permission to execute code on the server.
+
+** Components
+
+There are two components, the server and the client.
+
+The server is written in Python using Bottle and is the application that you upload to your server for execution.  Once it's running, the API will be available at the specified port.
+
+To connect to the API you can use the client, also written in Python.  Supply the URL endpoint and you will be prompted to start entering commands.
+
+*** Server
+
+To start the server, use rest-shell with the server option and supply the URL for your endpoint.  For example:
+
+#+BEGIN_SRC sh
+rest-shell --server http://localhost:8080
+#+END_SRC
+
+*** Client
+
+To connect to the API with the command line client, use rest-shell and supply the URL for your endpoint.  For example:
+
+#+BEGIN_SRC sh
+rest-shell http://localhost:8080
+#+END_SRC
+
+** API
+
+Currently only JSON is supported.
+
+*** Execute command
+
+The /execute location provides the ability to execute a command.  A sample request would look like:
+
+#+BEGIN_SRC js
+{
+    "command": "uname -sr"
+}
+#+END_SRC
+
+A sample response would look like:
+
+#+BEGIN_SRC js
+{
+    "output": "Linux 3.10-1-amd64\n",
+    "status": 0
+}
+#+END_SRC
+
+With the endpoint at `http://localhost:8080/execute`, an example using cURL would look like:
+
+#+BEGIN_SRC sh
+curl -s -H 'Content-Type: application/json' -d '{"command": "uname -sr"}' http://localhost:8080/execute
+#+END_SRC
+
+An example using HTTPie:
+
+#+BEGIN_SRC sh
+echo '{"command": "uname -sr"}' | http http://localhost:8080/execute
+#+END_SRC
+
+** Todo
+
+- SSL encryption support
+- Authentication via token
+- Ability ability to upload and download files in the client
+- Ability to change remote and local directories (with prompt updates)
+- Add support for timing out on the server side, useful if you run a command that requires input
+- Option to return stdout and stderr separately instead of combined in the server API
+- Input via stdin is currently limited to shell pipelining
