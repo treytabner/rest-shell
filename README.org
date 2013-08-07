@@ -80,7 +80,7 @@ With the endpoint at `http://localhost:8080/execute`, an example using cURL woul
 
 #+BEGIN_SRC sh
 curl -s -H 'Content-Type: application/json' \
-    -d '{"command": "uname -sr"}' http://localhost:8080/execute
+     -d '{"command": "uname -sr"}' http://localhost:8080/execute
 #+END_SRC
 
 An example using HTTPie:
