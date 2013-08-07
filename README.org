@@ -79,7 +79,8 @@ A sample response would look like:
 With the endpoint at `http://localhost:8080/execute`, an example using cURL would look like:
 
 #+BEGIN_SRC sh
-curl -s -H 'Content-Type: application/json' -d '{"command": "uname -sr"}' http://localhost:8080/execute
+curl -s -H 'Content-Type: application/json' \
+    -d '{"command": "uname -sr"}' http://localhost:8080/execute
 #+END_SRC
 
 An example using HTTPie:
