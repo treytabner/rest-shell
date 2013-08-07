@@ -41,8 +41,6 @@ TOKEN=hackme rest-shell --server localhost:8080
 To connect to the API with the command line client, use rest-shell and supply the URL for your endpoint.  You will also need to set the TOKEN environment variable here to match the server, otherwise you won't get access.  For example:
 
 #+BEGIN_SRC sh
-rest-shell localhost:8080
-Authentication failed, do you have TOKEN set properly?
 TOKEN=hackme rest-shell localhost:8080
 Welcome to the RESTful shell!
 (http://trey@localhost:8080) df -h /boot
