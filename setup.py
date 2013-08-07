@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='rest-shell',
-    version='1.0',
+    version='0.1',
     author = 'Trey Tabner',
     author_email = 'trey@tabner.com',
     url = 'https://github.com/treytabner/rest-shell',
