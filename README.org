@@ -21,7 +21,7 @@ To connect to the API you can use the client, also written in Python.  Supply th
 To start the server, use rest-shell with the server option and supply the URL for your endpoint.  For example:
 
 #+BEGIN_SRC sh
-rest-shell --server http://localhost:8080
+rest-shell --server localhost:8080
 #+END_SRC
 
 *** Client
@@ -29,7 +29,7 @@ rest-shell --server http://localhost:8080
 To connect to the API with the command line client, use rest-shell and supply the URL for your endpoint.  For example:
 
 #+BEGIN_SRC sh
-rest-shell http://localhost:8080
+rest-shell localhost:8080
 #+END_SRC
 
 ** API
@@ -69,10 +69,10 @@ echo '{"command": "uname -sr"}' | http http://localhost:8080/execute
 
 ** Todo
 
+- Authentication
 - SSL encryption support
-- Authentication via token
+- Add support for timing out on the server side
 - Ability ability to upload and download files in the client
 - Ability to change remote and local directories (with prompt updates)
-- Add support for timing out on the server side, useful if you run a command that requires input
 - Option to return stdout and stderr separately instead of combined in the server API
-- Input via stdin is currently limited to shell pipelining
+- Deal with stdin limitations (currently limited to shell pipelining)
