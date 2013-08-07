@@ -23,7 +23,7 @@ pip install git+https://github.com/treytabner/rest-shell.git
 
 There are two components, the server and the client.
 
-The server is written in Python using Bottle and is the application that you upload to your server for execution.  Once it's running, the API will be available at the specified port.
+The server is written in Python using Flask and is the application that you upload to your server for execution.  Once it's running, the API will be available at the specified port.
 
 To connect to the API you can use the client, also written in Python.  Supply the URL endpoint and you will be prompted to start entering commands.
 
