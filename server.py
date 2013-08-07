@@ -1,6 +1,4 @@
-import argparse
 import bottle
-import shlex
 import subprocess
 import tempfile
 
@@ -13,11 +11,12 @@ def execute():
     if not command:
         bottle.abort(code=400)
 
-    args = shlex.split(command)
-
     with tempfile.TemporaryFile() as stdout:
         try:
-            status = subprocess.call(args, stdout=stdout, stderr=subprocess.STDOUT)
+            status = subprocess.call(command,
+                                     shell=True,
+                                     stdout=stdout,
+                                     stderr=subprocess.STDOUT)
             stdout.seek(0)
             output = stdout.read()
         except Exception, e:
@@ -33,5 +32,4 @@ def execute():
 
 
 if __name__ == '__main__':
-    bottle.debug(True)
     bottle.run(host='localhost', port=8080, reloader=True)
