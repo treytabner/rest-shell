@@ -43,18 +43,18 @@ To connect to the API with the command line client, use rest-shell and supply th
 #+BEGIN_SRC sh
 TOKEN=hackme rest-shell localhost:8080
 Welcome to the RESTful shell!
-(https://trey@localhost:8080) df -h /boot
+[https://trey@localhost:8080] df -h /boot
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1       228M   43M  173M  20% /boot
-(https://trey@localhost:8080) uptime
+[https://trey@localhost:8080] uptime
 23:00:07 up 6 days,  6:16,  6 users,  load average: 0.15, 0.19, 0.14
-(https://trey@localhost:8080) ps
+[https://trey@localhost:8080] ps
 PID TTY          TIME CMD
   989 pts/2    00:00:00 bash
  5386 pts/2    00:00:00 rest-shell
  6084 pts/2    00:00:00 sh
  6085 pts/2    00:00:00 ps
-(https://trey@localhost:8080) python -V 2>&1 | toilet -f smmono9
+[https://trey@localhost:8080] python -V 2>&1 | toilet -f smmono9
 ▗▄▄      ▗  ▐                ▄▄     ▗▄▄▖    ▗▄▄
 ▐ ▝▌▗ ▗ ▗▟▄ ▐▗▖  ▄▖ ▗▗▖     ▝ ▝▌      ▐▘    ▐    ▗
 ▐▄▟▘▝▖▞  ▐  ▐▘▐ ▐▘▜ ▐▘▐       ▗▘      ▞     ▝▀▚▖ ▐
@@ -62,7 +62,7 @@ PID TTY          TIME CMD
 ▐    ▜   ▝▄ ▐ ▐ ▝▙▛ ▐ ▐     ▗▙▄▖ ▐   ▞   ▐  ▝▄▟▘ ▐
      ▞
     ▝▘
-(https://trey@localhost:8080) exit
+[https://trey@localhost:8080] exit
 #+END_SRC
 
 ** API

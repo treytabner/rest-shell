@@ -116,7 +116,7 @@ class RestShellClient(cmd.Cmd):
         """ Setup the prompt """
 
         user = self.remote_execute('whoami')
-        self.prompt = "(https://%s@%s) " % (user.strip(), self.location)
+        self.prompt = "[https://%s@%s] " % (user.strip(), self.location)
 
     def emptyline(self):
         """ Ignore empty lines """
