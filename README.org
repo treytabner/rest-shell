@@ -8,6 +8,14 @@ This is a RESTful shell that gives you command line access to a server that does
 - Run commands remotely without using the system's built in authentication system.
 - Not malware.  You already have permission to execute code on the server.
 
+** Installation
+
+Installation is easy with pip:
+
+#+BEGIN_SRC sh
+pip install git+https://github.com/treytabner/rest-shell.git
+#+END_SRC
+
 ** Components
 
 There are two components, the server and the client.
