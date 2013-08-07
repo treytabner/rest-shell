@@ -115,7 +115,7 @@ def main():
     parser.add_argument('--server', action='store_true',
                         help="Launch server instead of client")
     parser.add_argument('location', help="Use specified endpoint, "
-                                         "Example: localhost:8080")
+                                         "example: localhost:8080")
     args = parser.parse_args()
 
     if args.server:
