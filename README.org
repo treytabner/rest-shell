@@ -88,6 +88,11 @@ A sample response would look like:
 }
 #+END_SRC
 
+Headers required are:
+
+- Content-Type, set to "application/json"
+- X-Auth-Token, set to the value for TOKEN specified on the server
+
 With the endpoint at https://localhost:8080/execute, an example using cURL would look like:
 
 #+BEGIN_SRC sh
