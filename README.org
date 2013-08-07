@@ -1,4 +1,4 @@
-* REST shell
+* The RESTful shell
 
 This is a RESTful shell that gives you command line access to a server that does not provide another means of shell access.  If you are limited to an API to interact with your server, this tool may work for you.
 
