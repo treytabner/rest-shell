@@ -50,6 +50,14 @@ PID TTY          TIME CMD
  5386 pts/2    00:00:00 rest-shell
  6084 pts/2    00:00:00 sh
  6085 pts/2    00:00:00 ps
+(http://trey@localhost:8080) python -V 2>&1 | toilet -f smmono9
+▗▄▄      ▗  ▐                ▄▄     ▗▄▄▖    ▗▄▄
+▐ ▝▌▗ ▗ ▗▟▄ ▐▗▖  ▄▖ ▗▗▖     ▝ ▝▌      ▐▘    ▐    ▗
+▐▄▟▘▝▖▞  ▐  ▐▘▐ ▐▘▜ ▐▘▐       ▗▘      ▞     ▝▀▚▖ ▐
+▐    ▙▌  ▐  ▐ ▐ ▐ ▐ ▐ ▐      ▗▘      ▗▘        ▌▀▜▀▘
+▐    ▜   ▝▄ ▐ ▐ ▝▙▛ ▐ ▐     ▗▙▄▖ ▐   ▞   ▐  ▝▄▟▘ ▐
+     ▞
+    ▝▘
 (http://trey@localhost:8080) exit
 #+END_SRC
 
