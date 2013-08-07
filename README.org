@@ -7,6 +7,8 @@ This is a RESTful shell that gives you command line access to a server that does
 - Shell access to a server that does not offer shell access.
 - Run commands remotely without using the system's built in authentication system.
 - Not malware.  You already have permission to execute code on the server.
+- Interactive shell lets you scroll through history.
+- Readline support.
 
 ** Installation
 
@@ -98,10 +100,13 @@ echo '{"command": "uname -sr"}' | http http://localhost:8080/execute
 
 ** Todo
 
+In some order of priority:
+
 - Authentication
 - SSL encryption support
 - Add support for timing out on the server side
-- Ability ability to upload and download files in the client
 - Ability to change remote and local directories (with prompt updates)
+- Ability ability to upload and download files in the client
+- Shell completion and history commands
 - Option to return stdout and stderr separately instead of combined in the server API
 - Deal with stdin limitations (currently limited to shell pipelining)
